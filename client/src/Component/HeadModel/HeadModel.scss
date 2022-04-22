@@ -1,0 +1,91 @@
+.headerMenu{
+    height: 46px;
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(2, 20%);
+    justify-items: center;
+    align-items: center;
+    ol.progress{
+        display: flex;
+        margin: 0;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        padding: 0;
+        li{
+            list-style: none;
+            width: 58px;
+            
+        }
+    }
+    ol.user{
+        
+        margin: 0;
+        padding: 0;
+        width: 50%;
+        display: flex;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .ImgContainer{
+        position: relative;
+        width: 40px !important;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 1s linear;
+        overflow: hidden;
+        background: rgba(255,255,255,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        justify-items: end;
+        
+        .Ava{
+            width: 37px;
+            height: 37px;
+            border-radius: 50%;
+            //防止图片失真
+            object-fit: cover; 
+            object-position: center;
+            
+           
+        }
+        &:hover{
+            .cover{
+                // display: block;
+                opacity: 1;
+                
+                transition: all 0.3s linear;
+            }
+            .Ava{
+                transform:scale(1.2) ;
+            }
+        }
+       
+    }
+    .logout{
+        width: 40px !important;
+        height: 40px;
+        overflow: hidden;
+        cursor: pointer;
+        embed{
+            width: 40px;
+            height: 100%;
+            filter: drop-shadow(rgba(196, 196, 196, 1) 37px 0);
+            position: relative;
+            left: -37px;
+        }
+        &:hover{
+            embed{
+
+                filter: drop-shadow(white 37px 0);
+
+            }
+        }
+    }
+}

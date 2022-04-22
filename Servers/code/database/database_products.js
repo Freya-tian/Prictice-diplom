@@ -17,8 +17,8 @@ count:Number,
 purchase: Number,//进价
 retail:Number,//零售价
 wholesale:Number,//批发价
-Production_Date:Date,//生产日期
-shelf_life:Date,//保质期
+Production_Date:String,//生产日期
+shelf_life:String,//保质期
 img:String//产品图片
 },{collection:"products"});
 const products = mongoose.model('Products', dataSchema,'products');

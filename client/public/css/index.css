@@ -1,0 +1,74 @@
+body{
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  #Container{
+      width: 100%;
+      height: 100%;
+  }
+input{
+  outline: 0;
+  padding: 0px;
+  border: none;
+  box-sizing: border-box;
+}
+
+input::-webkit-input-placeholder { /* WebKit browsers*/
+
+  color:#999;font-size:24px;
+  vertical-align: text-bottom;
+
+}
+  
+input::-moz-placeholder { /* Mozilla Firefox 4 to 18*/
+
+  color:#999;
+  font-size:24px;
+  vertical-align: text-bottom;
+
+
+}
+
+input::-moz-placeholder { /* Mozilla Firefox 19+*/
+
+  color:#999;font-size:24px;
+
+  vertical-align: text-bottom;
+
+}
+
+input::-ms-input-placeholder { /* Internet Explorer 10+*/
+  
+  color:#999;
+  font-size:24px;
+  vertical-align: text-bottom;
+
+}
+
+ul{
+  list-style: none;
+}
+a{
+  color: white
+}
+::-webkit-scrollbar
+{
+    width:10px;
+    border-radius: 5px  ;
+    background-color:rgba(255, 255, 255, 0.5);
+}
+::-webkit-scrollbar-thumb
+{
+    border-radius:5px;
+    
+    background-color:rgba(69, 90, 100, 0.7);
+}

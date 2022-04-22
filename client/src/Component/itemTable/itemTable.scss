@@ -1,0 +1,69 @@
+.row{
+    height: 30px;
+    .count{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 30px;
+        .num{
+            max-width: 58px;
+            overflow: hidden;
+            input{
+                
+                background: rgba(253, 253, 253, 0);
+                max-width: 58px;
+                text-align: center;
+            }
+        }
+        .reduce,.add{
+            cursor: pointer;
+        }
+    }
+    .del{
+        cursor: pointer;
+        img{
+            width: 15px;
+            // height: 15px;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        &:hover{
+            img{
+                opacity: 1;
+            }
+           
+        }
+    }
+    
+}
+input::-webkit-input-placeholder { /* WebKit browsers*/
+
+    color:#999;font-size:15px;
+    vertical-align: text-bottom;
+  
+}
+    
+input::-moz-placeholder { /* Mozilla Firefox 4 to 18*/
+  
+    color:#999;
+    font-size:15px;
+    vertical-align: text-bottom;
+  
+  
+}
+  
+input::-moz-placeholder { /* Mozilla Firefox 19+*/
+  
+    color:#999;font-size:15px;
+  
+    vertical-align: text-bottom;
+  
+}
+  
+input::-ms-input-placeholder { /* Internet Explorer 10+*/
+    
+    color:#999;
+    font-size:15px;
+    vertical-align: text-bottom;
+  
+}

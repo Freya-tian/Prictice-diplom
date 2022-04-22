@@ -1,0 +1,50 @@
+.cashToggleContainer{
+    background: rgba(0,0,0,.5);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    .cashToggle{
+        background: rgba(207, 216, 220, 1);
+        width: 699px;
+        height: 397px;
+        margin: auto;
+        border-radius: 10px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr 1fr;
+        align-items: center;
+        justify-items: center;
+        .enterAmount{
+            font-size: 24px;
+            label{
+                vertical-align: middle;
+            }
+            .recived{
+                width: 100px;
+                height: 32px;
+                font-size: 20px;
+                text-align: center;
+                vertical-align: bottom;
+            }
+            .change{
+                vertical-align: bottom;
+
+            }
+            
+        }
+        .btn{
+            width: 211px;
+            height: 45px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 20px;
+            &:hover{
+                background-color:  rgba(96, 125, 139, 1);
+                color: white;
+
+            }
+        }
+    }
+    
+}

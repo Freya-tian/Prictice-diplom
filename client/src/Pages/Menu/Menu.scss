@@ -1,0 +1,146 @@
+.Menu{
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    .MenuContainer{
+        position: absolute;
+        left: 0;
+        top: 0;
+        .headercontainer{
+            
+            height: 138px;
+            width: 100vw;
+           
+            display: grid;
+            grid-template-columns: repeat(2,184px);
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+            .ImgContainer{
+                position: relative;
+                width: 113px;
+                height: 113px;
+                border-radius: 50%;
+                cursor: pointer;
+                transition: all 1s linear;
+                overflow: hidden;
+                background: rgba(255,255,255,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                justify-items: end;
+                .cover{
+                    position: absolute;
+                    top: 0;
+                    height: 100%;
+                    width: 100%;
+                    opacity: 0;
+                    text-align: center;
+                    line-height: 113px;
+                    color:aliceblue ;
+                    // display: none;
+                    background-color: rgba(0, 0, 0, 0.3);
+                    border-radius: 50%;
+                    //防止图片失真
+                    object-fit: cover; 
+                    object-position: center;
+                }
+                .Ava{
+                    width: 109px;
+                    height: 109px;
+                    border-radius: 50%;
+                    //防止图片失真
+                    object-fit: cover; 
+                    object-position: center;
+                    
+                   
+                }
+                &:hover{
+                    .cover{
+                        // display: block;
+                        opacity: 1;
+                        
+                        transition: all 0.3s linear;
+                    }
+                    .Ava{
+                        transform:scale(1.2) ;
+                    }
+                }
+               
+            }
+            .showInfo{
+                font-size: 20px;
+                color: white;
+                font-weight: 500;
+                .amount{
+                    text-align: center;
+                }
+            }
+    
+        }
+        .mainContainer{
+            width: 80%;
+            height: 30vw;
+            background: rgba(207, 216, 220, 0.3);
+            margin: 52px auto;
+            border-radius: 10px;
+           
+            display: grid;
+           
+            grid-template-columns: repeat(3, 13vw);
+            grid-template-rows: repeat(1, 15vw);
+            justify-content: space-around;
+            align-content: center;
+            .block{
+                // background: rgba(117, 117, 117, 0.5);
+                border-radius: 10px;
+                display: grid;
+                align-items:center ;
+                justify-items: center;
+                cursor: pointer;
+                
+                
+                    .imgContainer{
+                        width: 80%;
+                        height: 10vw; 
+                        overflow: hidden;                        
+                        embed{
+                            filter: drop-shadow(white 10.4vw 0);
+                            /* z-index: 2; */
+                            /* margin: -100px; */
+                            position: relative;
+                            /* left: 9px; */
+                            left: -100%;
+                            top: 0;
+                            
+                           
+                        } 
+                                        
+                        .icon{
+                            width: 100%;
+                            height: 100%;
+                           
+                        }
+                       
+                    }
+                    .explanation{
+                        color: white;
+                        // transition: color 0.5s linear;
+                    }
+                
+                
+                &:hover{
+                    
+
+                    embed{
+                        filter: drop-shadow(rgba(69, 90, 100, 0.9) 10.4vw 0);                     
+
+                    }
+                    .explanation{
+                        color: rgba(69, 90, 100, 0.8);
+                    }
+                }
+            }
+        }
+    }
+}

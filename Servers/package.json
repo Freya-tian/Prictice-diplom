@@ -9,7 +9,10 @@
   "author": "tianqi",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.27.2",
     "express": "^4.17.3",
+    "md5": "^2.3.0",
+    "moment": "^2.29.3",
     "mongoose": "^6.2.4"
   },
   "devDependencies": {

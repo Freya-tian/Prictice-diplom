@@ -4,7 +4,9 @@ import Item from '../../Component/itemTable/itemTable'
 import Background from '../../Component/Background/Background'
 import CashToggle from '../../Component/CashToggle/cashToggle'
 import Head from '../../Component/HeadModel/HeadModel'
-
+import CodePayToggle from '../../Component/CodePayToggle/CodePayToggle'
+import {nanoid} from 'nanoid'
+import { Navigate } from 'react-router-dom'
 
 import ex from '../../img/background.jpg'
 
@@ -17,6 +19,7 @@ export default class SaleCart extends Component {
     super()
     this.state={
         showcash:false,
+        showcode:false,
         showWechat:false,
         showAli:false,
         Total:0,
@@ -24,6 +27,9 @@ export default class SaleCart extends Component {
         productInfo:[],
         totalAmount:0,
         showImg:null,
+        url:"",
+        payId:nanoid(),
+        Logined:sessionStorage.getItem('access_token')
         
     }
     this.auto = createRef()
@@ -49,6 +55,18 @@ export default class SaleCart extends Component {
         this.setState({
           showcash:true
         })
+        break;
+      case 'method Wechat':
+        this.setState({
+          showcode:true
+        })
+        this.WechatPay()
+        break;
+      case 'method AliPay':
+        this.setState({
+          showcode:true
+        })
+        this.AliPay()
     }
   }
   // 是否显示弹窗回调
@@ -57,7 +75,53 @@ export default class SaleCart extends Component {
       showcash:val
     })
   }  
-  // 获取二维码内容，请求接口
+
+  showcode=(val)=>{
+    this.setState({
+      showcode:val
+    })
+  }
+
+  // 发送微信支付请求
+  WechatPay =()=>{
+    fetch('/api/wechatPay',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        price:this.state.totalAmount,
+        payId:this.state.payId
+      })
+    }).then(res=>res.json()).then(res=>{
+      console.log(res);
+      this.setState({
+        url:res.payUrl
+      })
+    })
+  }
+  AliPay=()=>{
+    fetch('/api/AliPay',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        price:this.state.totalAmount,
+        payId:this.state.payId
+      })
+    }).then(res=>res.json()).then(res=>{
+      console.log(res);
+      this.setState({
+        url:res.payUrl
+      })
+    })
+  }
+  changePayId=(val)=>{
+    
+      this.setState({
+        payId:nanoid()
+      })
+    
+
+  }
+  // 获取条形码内容，请求接口
   enternums=(event)=>{
     
     let val = event.target.value
@@ -133,12 +197,15 @@ export default class SaleCart extends Component {
       showImg:url
     })
   }
-  componentDidUpdate(){
-    this.auto.current.focus()
+  // componentDidUpdate(){
+  //   this.auto.current.focus()
 
-  }
+  // }
   componentDidMount(){
-    this.auto.current.focus()
+    if(this.state.Logined !== null){
+      this.auto.current.focus()
+    }
+    
   }
   componentWillUnmount(){
     this.setState({
@@ -147,6 +214,9 @@ export default class SaleCart extends Component {
   }
   // 
   render() {
+    if(this.state.Logined == null ||this.state.Logined==undefined){
+      return <Navigate to='/Login'/>
+   }else{
     return (
       <div className='CartContainer'>
           <Background/>
@@ -199,11 +269,11 @@ export default class SaleCart extends Component {
                       <li className="method cash" onClick={this.handleclick}>
                           <embed src={cash} type="" />
                       </li>
-                      <li className="method Wechat">
+                      <li className="method Wechat" onClick={this.handleclick}>
                         <embed src={wechat} type="" />
 
                       </li>
-                      <li className="method AliPay">
+                      <li className="method AliPay" onClick={this.handleclick}>
                         <embed src={Ali} type="" />
 
                       </li>
@@ -213,8 +283,12 @@ export default class SaleCart extends Component {
               </main>
           </div>
           {this.state.showcash?<CashToggle showcash={this.showcash} total={this.state.totalAmount}/>:''}
+          {this.state.showcode?<CodePayToggle showcode={this.showcode} url={this.state.url} payId = {this.state.payId} changePayId = {this.changePayId}/>:''}
+
       </div>
     )
+   }
+    
   }
 
  

@@ -13,6 +13,10 @@ export default class AllInfo extends Component {
             },
             showcover:false,
             findproductInfo:{},
+            updateproduct:{
+                Id:null,
+                update:{}
+            },
             msg:null
             
         }
@@ -53,6 +57,7 @@ export default class AllInfo extends Component {
 
         }
     }
+    // 根据id或者名称查找
     find=()=>{
         if(this.state.request.findId!=='' || this.state.request.findName!==''){
             fetch(`/api/products/item?${this.state.request.findId===''?'name='+this.state.request.findName : 'Id='+this.state.request.findId}`,{
@@ -63,6 +68,10 @@ export default class AllInfo extends Component {
                 if(res.status == 200){
                     this.setState({
                         findproductInfo:{...res.body[0]},
+                        updateproduct:{
+                            ...this.state.updateproduct,
+                            Id:res.body[0].Id
+                        },
                         showcover:true,
                         msg:null
                     })
@@ -79,6 +88,103 @@ export default class AllInfo extends Component {
         
     }
 
+    // 监听元素修改
+    onChangeInput=(event)=>{
+        switch(event.target.name){
+            case 'count':
+                this.setState({
+                    updateproduct:{
+                        ...this.state.updateproduct,
+                        update:{
+                            ...this.state.updateproduct.update,
+                            count:event.target.value
+                        }
+                        
+                    }
+                })
+                break;
+            case 'purchase':
+                this.setState({
+                    updateproduct:{
+                        ...this.state.updateproduct,
+                        update:{
+                            ...this.state.updateproduct.update,
+                            purchase:event.target.value
+                           
+                        }
+                    }
+                })
+                break;
+            case 'wholesale':
+                this.setState({
+                    updateproduct:{
+                        ...this.state.updateproduct,
+                        update:{
+                            ...this.state.updateproduct.update,
+                            wholesale:event.target.value
+
+                           
+                        }
+                    }
+                })
+                break;
+            case 'retail':
+                this.setState({
+                    updateproduct:{
+                        ...this.state.updateproduct,
+                        update:{
+                            ...this.state.updateproduct.update,
+                            retail:event.target.value
+
+
+                           
+                        }
+                    }
+                })
+                break;
+            case 'Production_Date':
+                this.setState({
+                    updateproduct:{
+                        ...this.state.updateproduct,
+                        update:{
+                            ...this.state.updateproduct.update,
+                            Production_Date:event.target.value
+
+
+
+                           
+                        }
+                    }
+                })
+                break;
+            case 'shelf_life':
+                this.setState({
+                    updateproduct:{
+                        ...this.state.updateproduct,
+
+                        shelf_life:event.target.value
+                    }
+                })
+                break;
+            
+            
+            
+        }
+    }
+    // 上传更新
+    update=()=>{
+        fetch('/api/products/update',{
+            method:'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:JSON.stringify(this.state.updateproduct)
+            
+        }).then(res=>res.json()).then(res=>{
+            console.log(res);
+            this.setState({
+                msg:res.msg
+            })
+        })
+    }
     getstatuscover=(val)=>{
         this.setState({
             showcover:val,
@@ -113,7 +219,7 @@ export default class AllInfo extends Component {
                   <tbody>
                     {
                         this.state.productAll.map((e,i)=>{
-                            return <ItemStock element={e}/>
+                            return <ItemStock key={e.Id} element={e}/>
                         })
                     }
 
@@ -131,35 +237,35 @@ export default class AllInfo extends Component {
                       </li>
                       <li>
                         Count:
-                        <input type="text" name="count" id="count" defaultValue={this.state.findproductInfo.count} className='enter'/>
+                        <input type="text" name="count" id="count" defaultValue={this.state.findproductInfo.count} className='enter' onChange={this.onChangeInput}/>
                       </li>
                       <li>
                       purchase:
-                      <input type="text" name="purchase" id="purchase" defaultValue={this.state.findproductInfo.purchase} className='enter' />
+                      <input type="text" name="purchase" id="purchase" defaultValue={this.state.findproductInfo.purchase} className='enter' onChange={this.onChangeInput}/>
                       
                       </li>
                       <li>
                       wholesale:
-                      <input type="text" name="wholesale" id="wholesale" defaultValue={this.state.findproductInfo.wholesale} className='enter'/>
+                      <input type="text" name="wholesale" id="wholesale" defaultValue={this.state.findproductInfo.wholesale} className='enter' onChange={this.onChangeInput}/>
 
                       </li>
                       <li>
                       retail:
-                      <input type="text" name="retail" id="retail" defaultValue={this.state.findproductInfo.retail}  className='enter'/>
+                      <input type="text" name="retail" id="retail" defaultValue={this.state.findproductInfo.retail}  className='enter' onChange={this.onChangeInput}/>
 
                       </li>
                       <li>
                       Production_Date:
-                      <input type="text" name="Production_Date" id="Production_Date" defaultValue={this.state.findproductInfo.Production_Date}  className='enter'/>
+                      <input type="text" name="Production_Date" id="Production_Date" defaultValue={this.state.findproductInfo.Production_Date}  className='enter' onChange={this.onChangeInput}/>
 
                       </li>
                       <li>
                       shelf_life:
-                      <input type="text" name="shelf_life" id="shelf_life" defaultValue={this.state.findproductInfo.shelf_life}  className='enter'/>
+                      <input type="text" name="shelf_life" id="shelf_life" defaultValue={this.state.findproductInfo.shelf_life}  className='enter' onChange={this.onChangeInput}/>
 
                       </li>
                       <li className='submitBtn'>
-                          <input type="button" value="Save"   />
+                          <input type="button" value="Save"  onClick={this.update} />
                       </li>
                   </ul>
                   {

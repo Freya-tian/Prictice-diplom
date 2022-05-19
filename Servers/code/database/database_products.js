@@ -14,7 +14,7 @@ Id:Number,
 name:String,
 description:String,
 count:Number,
-purchase: Number,//进价
+purchase: Number,//进价prs:[]
 retail:Number,//零售价
 wholesale:Number,//批发价
 Production_Date:String,//生产日期

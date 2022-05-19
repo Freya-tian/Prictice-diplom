@@ -1,9 +1,13 @@
 var express = require('express')
-
+const axios = require('axios')
+const md5 = require('md5')
+const moment =require('moment')
 let router = express.Router()
 
 
 let productsModel = require("../database/database_products.js")
+let recordsModel = require("../database/saled")
+const { json } = require('express')
 
 router.get('/api/products',function(res,req){
     productsModel.find({},(error,docs)=>{
@@ -11,6 +15,7 @@ router.get('/api/products',function(res,req){
     })
     
 })
+// 添加
 router.post('/api/products/add',express.json(),(res,req)=>{
     let data = res.body;
     let infomation = new productsModel(data) ;
@@ -23,7 +28,8 @@ router.post('/api/products/add',express.json(),(res,req)=>{
 
                 if(error){
                     req.status(400).send({
-                        'msg':'发生了一些错误，请重试\n Something went wrong, please try again'
+                        'msg':'发生了一些错误，请重试\n Something went wrong, please try again',
+                        "error":error
                     })
                 }else{
                     req.status(200).send({
@@ -40,6 +46,7 @@ router.post('/api/products/add',express.json(),(res,req)=>{
     
    
 })
+// 删除
 router.post('/api/products/delete',express.json(),(res,req)=>{
     let data = res;
     let infomation = new productsModel(data) ;
@@ -59,12 +66,14 @@ router.post('/api/products/delete',express.json(),(res,req)=>{
        
     })
 })
+
+// 查找数据
 router.get('/api/products/item',(res,req)=>{
     
     let data = res.query;   
     console.log(res);
     let datares='';
-    if(data.id!==undefined){
+    if(data.Id!==undefined){
         datares = data.Id
         productsModel.find({Id:Number(datares)},(error,doc)=>{
         
@@ -98,5 +107,106 @@ router.get('/api/products/item',(res,req)=>{
     console.log(datares)
     
     
+})
+
+router.post('/api/products/update',express.json(),(res,req)=>{
+    console.log(res);
+    productsModel.findOneAndUpdate({Id:res.body.Id},{$set:res.body.update},(err,data)=>{
+        if(err){
+            req.status(400).send({"status":400,
+            "error":"发生了一些错误，请重试\n Something went wrong, please try again"})
+        }else if(!data){
+            req.status(500).send({
+                msg:'can not find this item'
+            })
+        }else if(data){
+            req.status(200).send({
+                msg:'changed it,Please refresh site'
+            })
+        }
+
+    })
+})
+
+router.post('/api/wechatPay',express.json(),(res,req)=>{
+    let APPID= 'b87e843e3da5b336'
+    let APPSECRET= 'b87e843e3da5b3364efdb67a3a9ae1ee'
+    let singstr = md5(APPID+res.body.payId+''+'1'+res.body.price + APPSECRET)
+    let appsign = md5(APPID+APPSECRET)
+    
+    axios.post('https://www.gogozhifu.com/createOrder',{
+        payId:res.body.payId,
+        type  :1,
+        price:res.body.price,
+        param:'',
+        sign:singstr,
+        notifyUrl: 'http://localhost:8080/api/response',
+    },{
+        headers:{
+            "App-Id": APPID,
+            "App-Sign":appsign
+        }
+    }).then(date=>{
+        console.log(date.data);
+        if(date.data.code == 1){
+            console.log(date.data.data);
+            req.send(date.data.data)
+        }else{
+            req.send(date.data.msg)
+        }
+       
+    })
+})
+router.post('/api/AliPay',express.json(),(res,req)=>{
+    let APPID= 'b87e843e3da5b336'
+    let APPSECRET= 'b87e843e3da5b3364efdb67a3a9ae1ee'
+    let singstr = md5(APPID+res.body.payId+''+'2'+res.body.price + APPSECRET)
+    let appsign = md5(APPID+APPSECRET)
+    
+    axios.post('https://www.gogozhifu.com/createOrder',{
+        payId:res.body.payId,
+        type  :2,
+        price:res.body.price,
+        param:'',
+        sign:singstr,
+        notifyUrl: 'http://localhost:8080/api/response',
+    },{
+        headers:{
+            "App-Id": APPID,
+            "App-Sign":appsign
+        }
+    }).then(date=>{
+        console.log(date.data);
+        if(date.data.code == 1){
+            console.log(date.data.data);
+            req.send(date.data.data)
+        }else{
+            req.send(date.data.msg)
+        }
+       
+    })
+})
+
+router.post('/api/response',express.json(),(res,req)=>{
+    console.log(res.params)
+    let data={
+        ID:res.params.payId,
+        Amount:res.params.reallyPrice,
+        YY:moment().format('YYYY'),
+        MM:moment().format('MM'),
+        DD:moment().format('DD'),
+        Time:moment().format('hh:mm A'),
+    }
+    let infomation = new recordsModel(data) ;
+    infomation.save((error,data)=>{
+        if(error){
+            req.status(400).send({
+                'msg':'发生了一些错误，请重试\n Something went wrong, please try again',
+                "error":error
+            })
+        }else{
+            req.send("success")
+        }
+    })
 })
 module.exports = router

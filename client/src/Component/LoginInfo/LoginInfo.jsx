@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,Navigate } from 'react-router-dom'
 
 import "./LoginInfo.scss"
 export default class LoginInfo extends Component {
@@ -13,7 +13,8 @@ export default class LoginInfo extends Component {
       logInfo:{
         username:"",
         password:""
-      }
+      },
+      Logined:false
     }
   }
   handleinput=(event)=>{
@@ -39,6 +40,28 @@ export default class LoginInfo extends Component {
         break;
     }
   }
+  postdata = ()=>{
+    fetch('/api/cashier/find',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        Login:this.state.logInfo.username,
+        password:this.state.logInfo.password
+      })
+    }).then(res=>res.json()).then(res=>{
+      if(res.status == 200){
+        console.log(res);
+        sessionStorage.setItem('access_token', res.accessToken); 
+        sessionStorage.setItem('name', res.name); 
+
+        this.setState({
+          Logined:true
+        })
+      }else{
+        alert('Login Unsuccess')
+      }
+    })
+  }
   handlclick=()=>{
     let loginfo = this.state.logInfo
     let count=0
@@ -61,11 +84,14 @@ export default class LoginInfo extends Component {
         usernameHelp:"",
         passwordHelp:"",
       })
-      
+      this.postdata()
   }
   }
   render() {
     const {width,height} = this.props
+    if(this.state.Logined){
+      return <Navigate to='/Menu'/>
+    }
     return (
       <div id='LoginInfo' className='LoginInfo' style={{width:this.state.width, height: this.state.height}}>
         <div className="userinfo">

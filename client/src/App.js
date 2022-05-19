@@ -6,6 +6,7 @@ import Register from './Pages/Register/Register'
 import Menu from './Pages/Menu/Menu'
 import ShopCart from './Pages/SaleCart/SaleCart'
 import Stock from './Pages/Stock/Stock'
+import Statistics from './Pages/Statistics/Statistics'
 export default class App extends Component {
 
 
@@ -22,6 +23,7 @@ export default class App extends Component {
           <Route path='/Menu' element={<Menu/>}></Route>
           <Route path='/ShopCart'element={<ShopCart/>}></Route>
           <Route path='/Stock' element={<Stock/>}></Route>
+          <Route path='/Statistics' element={<Statistics/>}></Route>
         </Routes>    
         
       </div>

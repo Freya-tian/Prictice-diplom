@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Route} from 'react-router-dom'
+
 import "./Login.scss"
 import Background from '../../Component/Background/Background'
 import LoginInfo from '../../Component/LoginInfo/LoginInfo'
@@ -7,9 +7,9 @@ import LoginInfo from '../../Component/LoginInfo/LoginInfo'
 export default class Login extends Component {
   constructor(){
     super()
-    this.state={
-      
-      showLogin:true
+    this.state={      
+      showLogin:true,
+     
     }
   }
 
@@ -22,17 +22,11 @@ export default class Login extends Component {
   }
   
   render() {
+
     return (
       <div id='LoginContainer' className='LoginContainer'>
-       
-                    
         <Background/> 
-        <LoginInfo takeSowLogin={this.takeSowLogin}/>
-         
-                   
-
-       
-          
+        <LoginInfo takeSowLogin={this.takeSowLogin}/>    
       </div>
     )
   }

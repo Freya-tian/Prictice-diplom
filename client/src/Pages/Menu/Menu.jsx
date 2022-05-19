@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link,Navigate } from 'react-router-dom'
 
 
 import './Menu.scss'
@@ -9,7 +9,17 @@ import statistics from '../../img/statistics.svg'
 import stock from '../../img/stock.svg'
 import Background from '../../Component/Background/Background'
 export default class Menu extends Component {
+    constructor(){
+        super()
+        this.state={
+            Logined:sessionStorage.getItem('access_token'),
+            Username: sessionStorage.getItem('name')
+        }
+    }
   render() {
+    if(this.state.Logined == null ||this.state.Logined==undefined){
+       return <Navigate to='/Login'/>
+    }
     return (
       <div className='Menu' id='Menu'>
           <Background/>
@@ -18,7 +28,7 @@ export default class Menu extends Component {
                     <div className="ImgContainer">
                         <img className='Ava' src={ava} alt="user" />
                         <div className="cover">
-                            User
+                            {this.state.Username}
                         </div>
                     </div>
                     <div className="showInfo">
@@ -40,14 +50,17 @@ export default class Menu extends Component {
 
                         </div>
                     </Link>
-                    <div className="block two">
-                        <div className="imgContainer">
-                            <embed src={statistics} alt="销售记录" />
+                    <Link className='pathto' style={{textDecoration:'none'}} to='/Statistics'>
+                        <div className="block two">
+                            <div className="imgContainer">
+                                <embed src={statistics} alt="销售记录" />
+                            </div>
+                            <div className="explanation">
+                                <h1>Statistics</h1>
+                            </div>
                         </div>
-                        <div className="explanation">
-                            <h1>Statistics</h1>
-                        </div>
-                    </div>
+                    </Link>
+                   
                     <Link className='pathto' style={{textDecoration:'none'}} to='/Stock'>
                         <div className="block three">
                             <div className="imgContainer">

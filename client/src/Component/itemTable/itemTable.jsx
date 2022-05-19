@@ -11,7 +11,7 @@ export default class itemTable extends Component {
       amount:0,
            
     }
-    this.enternumber = createRef()
+    this.enternumbers = createRef()
   }
 
   returnAmount = ()=>{
@@ -25,6 +25,8 @@ export default class itemTable extends Component {
       amount:-amount
     })
     this.props.getamount(-this.state.amount)
+    this.updatecount(this.state.count,0)
+
   }
   dealwithAmount = ()=>{   
 
@@ -36,7 +38,10 @@ export default class itemTable extends Component {
     
     this.setState((state)=>({
       countBuy: Number(state.countBuy)+1
-    }))
+    }))  
+
+
+
   }
   minuc=(state)=>{
     this.setState((state)=>({
@@ -53,10 +58,27 @@ export default class itemTable extends Component {
   returnImg=()=>{
     this.props.getImg(this.state.img)
   }
+
+  // 更新数据库数量
+  updatecount=(count,countBuy)=>{
+    fetch('/api/products/update',{
+      method:'POST',
+      headers:{ 'Content-Type': 'application/json' },
+      body:JSON.stringify({
+        Id:this.state.Id,          
+        update:{
+          count:count-countBuy
+        } 
+      })
+    }).then(res=>res.json()).then(res=>{
+      console.log(res.msg);
+    })
+  }
   componentDidMount(){  
     setTimeout(this.dealwithAmount(),2000) 
     this.props.getamount(this.state.retail)
     this.props.getImg(this.state.img)
+    this.updatecount(this.state.count,this.state.countBuy)
 
   }
 
@@ -73,6 +95,8 @@ export default class itemTable extends Component {
       this.dealwithAmount()
       let returnAmount = (Number(this.state.countBuy)-Number(prevState.countBuy))*Number(this.state.retail)
       this.props.getamount(returnAmount)
+      this.updatecount(this.state.count,this.state.countBuy)
+      
     }
   }
 
@@ -90,7 +114,7 @@ export default class itemTable extends Component {
             <td className='count'>
               <div className="reduce" onClick={this.minuc}>-</div>
               <div className="num" >
-                <input type="text" defaultValue={this.state.countBuy}  onKeyUp={this.Buy} ref={this.enternumber }/>
+                <input type="text"  name="number" id="number" className='number'   value={this.state.countBuy}   ref={this.enternumbers} onChange={this.Buy}/>
               </div>                             
               <div className="add" onClick={this.add}> + </div>
 

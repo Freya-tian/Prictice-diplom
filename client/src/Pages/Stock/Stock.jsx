@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Navigate } from 'react-router-dom'
 import Background from '../../Component/Background/Background'
 import Head from '../../Component/HeadModel/HeadModel'
 import AddItem from '../../Component/AddItem/AddItem'
@@ -8,7 +9,8 @@ export default class Stock extends Component {
     constructor(){
         super()
         this.state={
-            AddShow:true
+            AddShow:true,
+            Logined:sessionStorage.getItem('access_token')
         }
     }
     // 菜单点击
@@ -28,6 +30,9 @@ export default class Stock extends Component {
         }
     }
   render() {
+    if(this.state.Logined == null ||this.state.Logined==undefined){
+        return <Navigate to='/Login'/>
+     }
     return (
       <div className='StockContainer'>
           <Background/>

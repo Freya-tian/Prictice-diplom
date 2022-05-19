@@ -80,12 +80,9 @@ router.get('/api/products/item',(res,req)=>{
             if(error){
                 req.status(400).send({"status":400,
                     "error":"发生了一些错误，请重试\n Something went wrong, please try again"})
-            }else if(doc.length != 0){
+            }else {
                 req.status(200).send({"status":200,
                     "body": doc})
-            }else{
-                req.status(500).send({"status":500,
-                    "msg":"系统中找不到该数据\n Can not find it in system"})
             }
         })
     }else{
@@ -140,7 +137,7 @@ router.post('/api/wechatPay',express.json(),(res,req)=>{
         price:res.body.price,
         param:'',
         sign:singstr,
-        notifyUrl: 'http://localhost:8080/api/response',
+        notifyUrl: 'http://119.45.178.227:8080/api/response',
     },{
         headers:{
             "App-Id": APPID,
@@ -169,7 +166,7 @@ router.post('/api/AliPay',express.json(),(res,req)=>{
         price:res.body.price,
         param:'',
         sign:singstr,
-        notifyUrl: 'http://localhost:8080/api/response',
+        notifyUrl: 'http://119.45.178.227:8080/api/response',
     },{
         headers:{
             "App-Id": APPID,

@@ -195,11 +195,9 @@ router.post('/api/response',express.json(),(res,req)=>{
         Time:moment().format('hh:mm A'),
     }
     let infomation = new recordsModel(data) ;
-    infomation.save((query,data)=>{
-        if(error){
-            
-               console.log(error); 
-            
+    infomation.save((error,data)=>{
+        if(error){            
+            console.log(error);             
         }else{
             req.send("success"),
             console.log("success"); 

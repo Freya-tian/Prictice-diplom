@@ -49,7 +49,7 @@ router.post('/api/products/add',express.json(),(res,req)=>{
 // 删除
 router.post('/api/products/delete',express.json(),(res,req)=>{
     let data = res.body;
-    let infomation = new productsModel(data) ;
+    
     console.log(res.body);
 
     productsModel.findOneAndDelete(Number(data.Id),(error,doc)=>{
@@ -57,12 +57,9 @@ router.post('/api/products/delete',express.json(),(res,req)=>{
         
             if(error){
                 req.send({msg:"发生了一些错误，请重试\n Something went wrong, please try again"})
-            }else if(doc!= null ){
+            }else {
                 req.send({msg:"成功删除"+data.Id+"Delete successfuly"})
-            }else if(doc == null){
-                req.send({msg:"没有找到该产品\n Don't find this product"})
             }
-        
        
     })
 })

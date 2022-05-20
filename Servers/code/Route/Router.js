@@ -195,14 +195,14 @@ router.post('/api/response',express.json(),(res,req)=>{
         Time:moment().format('hh:mm A'),
     }
     let infomation = new recordsModel(data) ;
-    infomation.save((error,data)=>{
+    infomation.save((query,data)=>{
         if(error){
-            req.status(400).send({
-                'msg':'发生了一些错误，请重试\n Something went wrong, please try again',
-                "error":error
-            })
+            
+               console.log(error); 
+            
         }else{
-            req.send("success")
+            req.send("success"),
+            console.log("success"); 
         }
     })
 })

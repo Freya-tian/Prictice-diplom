@@ -48,7 +48,7 @@ router.post('/api/products/add',express.json(),(res,req)=>{
 })
 // 删除
 router.post('/api/products/delete',express.json(),(res,req)=>{
-    let data = res;
+    let data = res.body;
     let infomation = new productsModel(data) ;
     console.log(res.body);
 

@@ -29,7 +29,8 @@ export default class SaleCart extends Component {
         showImg:null,
         url:"",
         payId:nanoid(),
-        Logined:sessionStorage.getItem('access_token')
+        Logined:sessionStorage.getItem('access_token'),
+        Payamount:''
         
     }
     this.auto = createRef()
@@ -94,7 +95,8 @@ export default class SaleCart extends Component {
     }).then(res=>res.json()).then(res=>{
       console.log(res);
       this.setState({
-        url:res.payUrl
+        url:res.payUrl,
+        Payamount: res.reallyPrice
       })
     })
   }
@@ -283,7 +285,7 @@ export default class SaleCart extends Component {
               </main>
           </div>
           {this.state.showcash?<CashToggle showcash={this.showcash} total={this.state.totalAmount}/>:''}
-          {this.state.showcode?<CodePayToggle showcode={this.showcode} url={this.state.url} payId = {this.state.payId} changePayId = {this.changePayId}/>:''}
+          {this.state.showcode?<CodePayToggle showcode={this.showcode} url={this.state.url} Payamount={this.state.Payamount} payId = {this.state.payId} changePayId = {this.changePayId}/>:''}
 
       </div>
     )

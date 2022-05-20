@@ -22,7 +22,7 @@ export default class CodePayToggle extends Component {
       )
     }
   render() {
-      const {url} = this.props
+      const {url,Payamount} = this.props
     return (
       <div className='PayCover'>
           <div className="codepic">
@@ -31,6 +31,9 @@ export default class CodePayToggle extends Component {
                   size={300} // 二维码的大小
                   fgColor="#000000" // 二维码的颜色
               />
+              <div>
+                Amount:{Payamount}
+              </div>
             </div>
             
             <input type="button" value="Cancel" className='close' onClick={this.handlecilck}/>

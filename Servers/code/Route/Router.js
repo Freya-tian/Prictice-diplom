@@ -185,7 +185,7 @@ router.post('/api/AliPay',express.json(),(res,req)=>{
 })
 
 router.post('/api/response',express.json(),(res,req)=>{
-    console.log(res.params)
+    console.log(res)
     let data={
         ID:res.params.payId,
         Amount:res.params.reallyPrice,

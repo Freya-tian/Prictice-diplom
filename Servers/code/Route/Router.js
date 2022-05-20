@@ -52,7 +52,7 @@ router.post('/api/products/delete',express.json(),(res,req)=>{
     
     console.log(res.body);
 
-    productsModel.findOneAndDelete(Number(data.Id),(error,doc)=>{
+    productsModel.remove({Id:Number(data.Id)},(error,doc)=>{
         
         
             if(error){

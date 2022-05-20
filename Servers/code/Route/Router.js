@@ -185,10 +185,10 @@ router.post('/api/AliPay',express.json(),(res,req)=>{
 })
 
 router.post('/api/response',express.json(),(res,req)=>{
-    console.log(res)
+    console.log(res.query)
     let data={
-        ID:res.params.payId,
-        Amount:res.params.reallyPrice,
+        ID:res.query.payId,
+        Amount:res.query.reallyPrice,
         YY:moment().format('YYYY'),
         MM:moment().format('MM'),
         DD:moment().format('DD'),

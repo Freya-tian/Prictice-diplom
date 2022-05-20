@@ -135,19 +135,18 @@ recordRouter.get('/api/records/year',(res,req)=>{
 })
 // 查询是否支付成功
 recordRouter.get('/api/records/PaySuccess',(res,req)=>{
-    recordsModel.find({ID:Number(res.query.payId)},(error,doc)=>{
+    recordsModel.find({ID:res.query.payId},(error,doc)=>{
         
         if(error){
             req.status(400).send({"status":400,
                 "error":"发生了一些错误，请重试\n Something went wrong, please try again"})
-        }else if(doc.length != 0){
+        }else {
             req.status(200).send({"status":200,
                 "msg": "Pay success"})
-        }else{
-            req.send({"status":500,
-                "msg":"Pay unsuccess"})
         }
     })
 })
+
+
 
 module.exports= recordRouter

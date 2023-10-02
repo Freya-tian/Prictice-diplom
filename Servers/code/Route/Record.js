@@ -6,7 +6,7 @@ let recordRouter = express.Router()
 
 let recordsModel = require("../database/saled")
 
-recordRouter.post('/api/records/add',express.json(),(res,req)=>{
+recordRouter.post('/records/add',express.json(),(res,req)=>{
     let data = res.body
     console.log(data);
     let infomation = new recordsModel(data) ;
@@ -24,7 +24,7 @@ recordRouter.post('/api/records/add',express.json(),(res,req)=>{
     })
 })
 
-recordRouter.get('/api/records/get',express.json(),(res,req)=>{
+recordRouter.get('/records/get',express.json(),(res,req)=>{
     recordsModel.find({},(error,docs)=>{
         if(error){
             req.send({
@@ -40,7 +40,7 @@ recordRouter.get('/api/records/get',express.json(),(res,req)=>{
     
 })
 
-recordRouter.get('/api/records/getday',express.json(),(res,req)=>{  
+recordRouter.get('/records/getday',express.json(),(res,req)=>{  
     // console.log(res.query);
     let data = res.query
     recordsModel.aggregate([
@@ -57,7 +57,7 @@ recordRouter.get('/api/records/getday',express.json(),(res,req)=>{
     
 })
 
-recordRouter.get('/api/records/getmonth',(res,req)=>{  
+recordRouter.get('/records/getmonth',(res,req)=>{  
     console.log(res.query);
     let data = res.query
     recordsModel.aggregate([
@@ -84,7 +84,7 @@ recordRouter.get('/api/records/getmonth',(res,req)=>{
     })
     
 })
-recordRouter.get('/api/records/geteverymonth',(res,req)=>{  
+recordRouter.get('/records/geteverymonth',(res,req)=>{  
     console.log(res.query);
     let data = res.query
     recordsModel.aggregate([
@@ -111,7 +111,7 @@ recordRouter.get('/api/records/geteverymonth',(res,req)=>{
     })
     
 })
-recordRouter.get('/api/records/year',(res,req)=>{  
+recordRouter.get('/records/year',(res,req)=>{  
     console.log(res.query);
     let data = res.query
     recordsModel.aggregate([
@@ -134,7 +134,7 @@ recordRouter.get('/api/records/year',(res,req)=>{
     
 })
 // 查询是否支付成功
-recordRouter.get('/api/records/PaySuccess',(res,req)=>{
+recordRouter.get('/records/PaySuccess',(res,req)=>{
     recordsModel.find({ID:res.query.payId},(error,doc)=>{
         
         if(error){

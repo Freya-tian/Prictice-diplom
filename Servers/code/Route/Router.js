@@ -9,14 +9,14 @@ let productsModel = require("../database/database_products.js")
 let recordsModel = require("../database/saled")
 const { json } = require('express')
 
-router.get('/api/products',function(res,req){
+router.get('/products',function(res,req){
     productsModel.find({},(error,docs)=>{
         req.send(docs)
     })
     
 })
 // 添加
-router.post('/api/products/add',express.json(),(res,req)=>{
+router.post('/products/add',express.json(),(res,req)=>{
     let data = res.body;
     let infomation = new productsModel(data) ;
     console.log(data);
@@ -47,7 +47,7 @@ router.post('/api/products/add',express.json(),(res,req)=>{
    
 })
 // 删除
-router.post('/api/products/delete',express.json(),(res,req)=>{
+router.post('/products/delete',express.json(),(res,req)=>{
     let data = res.body;
     
     console.log(res.body);
@@ -65,7 +65,7 @@ router.post('/api/products/delete',express.json(),(res,req)=>{
 })
 
 // 查找数据
-router.get('/api/products/item',(res,req)=>{
+router.get('/products/item',(res,req)=>{
     
     let data = res.query;   
     console.log(res);
@@ -103,7 +103,7 @@ router.get('/api/products/item',(res,req)=>{
     
 })
 
-router.post('/api/products/update',express.json(),(res,req)=>{
+router.post('/products/update',express.json(),(res,req)=>{
     console.log(res);
     productsModel.findOneAndUpdate({Id:res.body.Id},{$set:res.body.update},(err,data)=>{
         if(err){
@@ -122,7 +122,7 @@ router.post('/api/products/update',express.json(),(res,req)=>{
     })
 })
 
-router.post('/api/wechatPay',express.json(),(res,req)=>{
+router.post('/wechatPay',express.json(),(res,req)=>{
     let APPID= 'b87e843e3da5b336'
     let APPSECRET= 'b87e843e3da5b3364efdb67a3a9ae1ee'
     let singstr = md5(APPID+res.body.payId+''+'1'+res.body.price + APPSECRET)
@@ -151,7 +151,7 @@ router.post('/api/wechatPay',express.json(),(res,req)=>{
        
     })
 })
-router.post('/api/AliPay',express.json(),(res,req)=>{
+router.post('/AliPay',express.json(),(res,req)=>{
     let APPID= 'b87e843e3da5b336'
     let APPSECRET= 'b87e843e3da5b3364efdb67a3a9ae1ee'
     let singstr = md5(APPID+res.body.payId+''+'2'+res.body.price + APPSECRET)
@@ -181,7 +181,7 @@ router.post('/api/AliPay',express.json(),(res,req)=>{
     })
 })
 
-router.post('/api/response',express.json(),(res,req)=>{
+router.post('/response',express.json(),(res,req)=>{
     console.log(res.query)
     let data={
         ID:res.query.payId,

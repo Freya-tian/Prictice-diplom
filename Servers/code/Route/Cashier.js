@@ -19,7 +19,7 @@ let cashierModel = require("../database/cashier")
 //     }
 // })
 
-cashierRouter.post('/api/cashier/find',express.json(),(res,req)=>{
+cashierRouter.post('/cashier/find',express.json(),(res,req)=>{
     console.log(res);
     let data = res.body
     

@@ -14,6 +14,9 @@ export default class App extends Component {
     return (
       <div id='Container'>  
         <Routes>
+          <Route path='/' element={
+            <Login/>
+          }></Route> 
           <Route path='/Login' element={
             <Login/>
           }></Route> 

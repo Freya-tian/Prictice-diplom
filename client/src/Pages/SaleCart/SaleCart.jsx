@@ -30,7 +30,9 @@ export default class SaleCart extends Component {
         url:"",
         payId:nanoid(),
         Logined:sessionStorage.getItem('access_token'),
-        Payamount:''
+        Payamount:'',
+        version0Show:true,
+        version1Show:false
         
     }
     this.auto = createRef()
@@ -204,9 +206,19 @@ export default class SaleCart extends Component {
 
   // }
   componentDidMount(){
-    if(this.state.Logined !== null){
+    if(this.state.Logined !== null&&this.state.version1Show){
       this.auto.current.focus()
     }
+    let version = localStorage.getItem('abversion')
+    if(version===null){
+      localStorage.setItem("abversion",Math.round(Math.random()))
+      version = localStorage.getItem('abversion')
+    }
+    if(version === '1')
+    this.setState({
+      version0show:false,
+      version1show:true
+    })
     
   }
   componentWillUnmount(){
@@ -230,9 +242,18 @@ export default class SaleCart extends Component {
                     <img className='img' src={this.state.showImg?this.state.showImg :ex}  alt="没有图片" />
                   </div>
                   <div className="enter">
-                    <input type="text"  name="autoenter" id="autoenter" className='numcode' onKeyUp={this.enternum}  ref={this.auto}/>
-                    <input type="text" name="selfenter" id="selfenter" className='numcode' placeholder='手动输入，enter键确定' onKeyUp={this.enternum}  ref={this.self}/>
+                    {                    
+                      this.state.version0Show?
+                      <input type="text" name="selfenter" id="selfenter" className='numcode' placeholder='手动输入，enter键确定' onKeyUp={this.enternum}  ref={this.self}/>
+                      :''
+                    }
+                    {
+                      this.state.version1Show?
+                      <input type="text"  name="autoenter" id="autoenter" className='numcode' onKeyUp={this.enternum}  ref={this.auto}/>
+                      :''
 
+                    }
+                    
                   </div>
 
                 </div>

@@ -1,7 +1,7 @@
 .AllInfoContaier{
     padding: 40px;
     height: 100%;
-    
+    position: relative;
     .SerchBlock{
         width: fit-content;
         margin: 0 auto;
@@ -30,6 +30,25 @@
             }
         }
         
+    }
+    .version1{
+       
+        height: 251px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        right: 0;
+        div{
+            font-size: 20px;
+            font-weight: 500;
+            color: white;
+        }
+        .serch{
+            width: 500px;
+            margin-top: 30px;
+        }
     }
     .allInfo{
         overflow: auto;

@@ -12,6 +12,9 @@
     }
     .userinfo{
         margin: 94px 136px 44px;
+    }
+    .version1{
+        
         .login{
             width: 437px;
             height: 58px;
@@ -41,6 +44,49 @@
                 vertical-align: bottom;
                 padding: 0 10px;
 
+            }
+        }
+    }
+    .version0{
+        span{
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 100;
+        }
+        .login{
+            width: 437px;
+            height: 58px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 28px;
+            #LoginInfo{                
+                height: 100%;
+                border-radius: 7px;
+                outline: 0;
+                line-height: 58px;
+                font-size: 24px;
+                vertical-align: baseline;
+                padding:0 10px;
+                
+            }
+            
+        }
+        .Password{
+            width: 437px;
+            height: 58px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            #Password{
+                
+                height: 50px;
+                border-radius: 7px;
+                line-height: 58px;
+                font-size: 24px;
+                vertical-align: baseline;
+                padding: 0 10px;
+                
             }
         }
     }

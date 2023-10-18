@@ -17,7 +17,9 @@ export default class AllInfo extends Component {
                 Id:null,
                 update:{}
             },
-            msg:null
+            msg:null,
+            version0show:true,
+            version1show:false
             
         }
     }
@@ -193,39 +195,63 @@ export default class AllInfo extends Component {
     }
     componentDidMount(){
         this.getAllInfo()
+        let version = localStorage.getItem('abversion')
+    if(version===null){
+      localStorage.setItem("abversion",Math.round(Math.random()))
+      version = localStorage.getItem('abversion')
+    }
+    if(version === '1')
+    this.setState({
+      version0show:false,
+      version1show:true
+    })
+
     }
   render() {
     return (
       <div className='AllInfoContaier'>
-          <div className="SerchBlock">
-              <input type="text" name="serch" id="serch" className='serch' onChange={this.findProduct} />
-              <label htmlFor="serch" onClick={this.find} >Serch</label>
-          </div>
-          <div className="allInfo">
-              <table className='tableAll'>
-                  <thead>
-                      <tr className='headTable'>
-                          <th>ID</th>
-                          <th>Name</th>
-                          <th>Count</th>
-                          <th>Purchase</th>
-                          <th>Wholesale</th>
-                          <th>Retail</th>
-                          <th>Production_Date</th>
-                          <th>Shelf_life</th>
-                          <th></th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                    {
-                        this.state.productAll.map((e,i)=>{
-                            return <ItemStock key={e.Id} element={e}/>
-                        })
-                    }
+          { this.state.version0show? 
+                <div>
+                    <div className="SerchBlock version0">
+                        <input type="text" name="serch" id="serch" className='serch' onChange={this.findProduct} />
+                        <label htmlFor="serch" onClick={this.find} >Serch</label>
+                    </div>
+                     <div className="allInfo version0">
+                        <table className='tableAll'>
+                            <thead>
+                                <tr className='headTable'>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Count</th>
+                                    <th>Purchase</th>
+                                    <th>Wholesale</th>
+                                    <th>Retail</th>
+                                    <th>Production_Date</th>
+                                    <th>Shelf_life</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              {
+                                  this.state.productAll.map((e,i)=>{
+                                      return <ItemStock key={e.Id} element={e}/>
+                                  })
+                              }
 
-                  </tbody>
-              </table>
-          </div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+         
+       :""}
+
+          {this.state.version1show?
+                    <div className="SerchBlock version1">
+                    <div>Please enter the product barcode or product name you want to find</div>
+                      <input type="text" name="serch" id="serch" className='serch' onChange={this.findProduct} />
+                      <label htmlFor="serch" onClick={this.find} >Serch</label>
+                  </div>:""
+        }
           <div className="cover" style={{display:this.state.showcover?'block':'none'}}>
               <div className="info">
                   <ul style={{display:this.state.msg!== null?'none':'grid'}}>
